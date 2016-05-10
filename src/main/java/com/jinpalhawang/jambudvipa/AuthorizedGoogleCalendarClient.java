@@ -30,7 +30,7 @@ public class AuthorizedGoogleCalendarClient {
   private static final String APPLICATION_NAME = "Jambudvipa";
   /** Directory to store user credentials for this application. */
   private static final File DATA_STORE_DIR =
-      new File(System.getProperty("user.home"), ".credentials/jambudvipa.json");
+      new File(System.getProperty("user.home"), ".credentials/jambudvipa");
 
   private static HttpTransport HTTP_TRANSPORT;
   private static FileDataStoreFactory DATA_STORE_FACTORY;
@@ -50,7 +50,7 @@ public class AuthorizedGoogleCalendarClient {
    * If modifying these scopes, delete your previously saved credentials
    * at ~/.credentials/calendar-java-quickstart.json
    */
-  private static final List<String> SCOPES = Arrays.asList(CalendarScopes.CALENDAR_READONLY);
+  private static final List<String> SCOPES = Arrays.asList(CalendarScopes.CALENDAR);
 
   public static Credential authorize() throws IOException {
     InputStream in = AuthorizedGoogleCalendarClient.class.getResourceAsStream("/client_secret.json");
@@ -60,7 +60,6 @@ public class AuthorizedGoogleCalendarClient {
     GoogleAuthorizationCodeFlow flow =
         new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
             .setDataStoreFactory(DATA_STORE_FACTORY)
-            .setAccessType("offline")
             .build();
     Credential credential = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
     log.info("Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
